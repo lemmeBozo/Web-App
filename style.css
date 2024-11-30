@@ -34,3 +34,22 @@ form {
 input[type="search"]::-webkit-search-cancel-button {
     appearance: none; /* Reset default styling */
 }
+
+li.movie {
+    background-color: #fafafa;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Add hover effect for each movie item */
+li.movie:hover {
+    background-color: #e0e0e0;
+    transform: translateX(5px);
+}
+

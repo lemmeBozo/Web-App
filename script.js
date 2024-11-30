@@ -1,28 +1,10 @@
 // API Key
 const API_KEY = "TSYG1xjK9P1Pzej0W7UhbtV9qbvtaC7d693lME1Y";
-let data;
-/* 
-    For the record I know im not supposed to have my api key be public
-    I was going to have a backend with nodeJS but that is wayyyyy too complicated for me
-    I tried, so my api key will just be public
-*/
 
-function listMovies() {
-    // Selects container in which items will be appended to
-    const container = document.querySelector(".entertainment-information");
+// HTML Elements
+const form = document.getElementById("search-form");
 
-}
-
-function parseJson(data) {
-    let info = {};
-	data.title_results.forEach((item, i) => {
-		info[`Movie ${i}`] = {
-			"name": item.name,
-			"id": item.id
-		}
-	})
-	return info;
-}
+// Helper Functions
 
 // Fetches data at url and returns data as JSON
 async function fetchData(url) {
@@ -40,21 +22,54 @@ async function fetchData(url) {
     }
 }
 
+function parseJson(data) {
+    let info = {};
+    data.title_results.forEach((item, i) => {
+        info[`Movie ${i}`] = {
+            "name": item.name,
+            "id": item.id
+        }
+    })
+    return info;
+}
 
-const form = document.getElementById("search-form");
+function addListListeners() {
+    const container = document.getElementById("container");
+    Array.from(container.querySelectorAll(".movie")).forEach((movie) => {
+        movie.addEventListener("click", (e) => {
+            console.log(e.target);
+        });
+    });
+}
 
-// Saves user inputed value into variable
+function clearElement(element) {element.innerHTML = '';}
+
+function listMovies(movies) {
+    // Selects container in which items will be appended to
+    const container = document.querySelector(".entertainment-information");
+    clearElement(container); // Clears all child elements inside container
+    const list = document.createElement("ul");
+    Object.values(movies).forEach((movie) => {
+        const li = document.createElement("li");
+        li.dataset.label = movie.id;
+        li.classList.add("movie");
+        li.innerHTML = movie.name;
+        list.appendChild(li);
+    })
+    container.appendChild(list);
+}
+
+// Event Listeners
 form.addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevents page refresh
     const form = event.target;
     const searchValue = document.querySelector(".search-input").value;
     const searchURL = `https://api.watchmode.com/v1/search/?apiKey=${API_KEY}&search_field=name&search_value=${encodeURI(searchValue)}`;
-    console.log(searchURL);
     try {
         let info = parseJson(await fetchData(searchURL));
-        console.log(info);
+        listMovies(info);
+        addListListeners();
     } catch(error) {
         console.error("Error fetching data: ", error);
     }
 });
-
