@@ -1,27 +1,33 @@
-/* 
-1. Upon program boot up display local storage
-(note make sure that each div has the same ID 
-this is because we want to be able to search up information about 
-the movie
-make another local storage var that holds id(s) )
-*/
-
 // Displays initial local storage values to the screen if any
 displayLocalStorage(localStorage.getItem("search"));
 
 // API Key (HIDE THIS LATER)
-
-/*
-ALSO FOR THE RECORD
-I know you can see this but who cares it just a free api key
-i'll hide it later
-*/
 const API_KEY = "TSYG1xjK9P1Pzej0W7UhbtV9qbvtaC7d693lME1Y";
 
 
 // HTML elements
 const form = document.getElementById("search-form");
 let clearButton = document.querySelector(".clear");
+
+function addSearchesEventListener() {
+    const container = document.querySelector(".search-information");
+    container.addEventListener("click", async (e) => {
+        let entryContainer = e.target.closest(".entry-container");
+        if(entryContainer) {
+            const searchValue = entryContainer.innerText;      
+            const searchURL = `https://api.watchmode.com/v1/search/?apiKey=${API_KEY}&search_field=name&search_value=${encodeURI(searchValue)}`;  
+            try {
+                let info = parseJson(await fetchData(searchURL));
+                if (!Object.keys(info).length == 0) {
+                    listMovies(info);
+                } else {
+                    alert("No movies found under that name");
+                }
+                //addListListeners();    IMPLEMENT THIS AGAIN
+            } catch(error) {console.log(error);}
+        }
+    });
+}
 
 function displayLocalStorage(data) {
     if (data) {
@@ -35,6 +41,7 @@ function displayLocalStorage(data) {
             div.appendChild(span);
             container.appendChild(div);
         });
+        addSearchesEventListener();
     }
 }
 
@@ -114,7 +121,7 @@ form.addEventListener("submit", async (event) => {
         } else {
             alert("No movies found under that name");
         }
-        addListListeners();    
+        //addListListeners();    IMPLEMENT THIS AGAIN
     } catch(error) {
         console.error("Error fetching data: ", error);
     }
