@@ -1,55 +1,157 @@
+body {
+    background-color: #1e1e2e;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 32px; 
+    text-align: center; 
+    font-family: "Lexend", sans-serif; 
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
+}
+
 form {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    padding: 10px;
 }
 
 .search {
-    width: max-content;
-    padding: 14px;
-    border-radius: 28px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background: #f6f6f6;
 }
 
 .search-icon {
-    color: black;   
+    color: black;
 }
 
 .search-input {
     all: unset;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Lexend", sans-serif;
     color: #333333;
-    margin-left: 14px;
+    margin-left: 10px;
     background: transparent;
-    width: 500px;
+    width: 100%;
 }
+
 .search-input::placeholder {
-    color: rgba(0,0,0,0.25);
+    color: rgba(0, 0, 0, 0.25);
 }
 
 input[type="search"]::-webkit-search-cancel-button {
-    appearance: none; /* Reset default styling */
+    appearance: none;
 }
 
-li.movie {
-    background-color: #fafafa;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 5px;
+.container {
     display: flex;
+    flex-direction: column;
+}
+
+.entertainment-information {
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* Make divs stack vertically */
+    gap: 10px; /* Add spacing between movie divs */
+    padding: 10px;
+}
+
+.entertainment-information .movie {
+    width: 800px;
+    cursor: pointer;
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 5px;
+    display: flex; /* Flex for alignment */
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Add hover effect for each movie item */
-li.movie:hover {
-    background-color: #e0e0e0;
-    transform: translateX(5px);
+.entertainment-information .movie:hover {
+    background-color: #d5d5d5;
+    transform: translateY(-2px);
 }
 
+.previous-searches {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.previous-searches h2 {
+    color: white;
+}
+
+.previous-searches ul {
+    list-style-type: none;
+}
+
+/* Styling for previous searches (list items) */
+.previous-searches li {
+    width: 500px;
+    background-color: #ffffff;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+button {
+    background-color: #f6f6f6;
+    color: #333333;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: "Lexend", sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 1024px) {
+    form {
+        margin-top: 40px;
+        flex-direction: row;
+    }
+
+    .search {
+        width: max-content;
+        padding: 14px;
+        border-radius: 28px;
+    }
+
+    .search-input {
+        font-size: 16px;
+        margin-left: 14px;
+        width: 500px;
+    }
+
+    .entertainment-information {
+        flex-direction: column; /* Ensure vertical stacking on larger screens too */
+        justify-content: flex-start;
+    }
+
+    .entertainment-information .movie {
+        padding: 15px;
+    }
+
+    .entertainment-information .movie:hover {
+        transform: translateY(-5px);
+    }
+}
