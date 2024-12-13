@@ -171,23 +171,3 @@ clearButton.addEventListener("click", ()=> {
 // Helper function
 function clearElement(element) {element.innerHTML = '';}
 
-
-
-/*
-When displaying entries gotten from api
-make sure to use ".entry-container" class so that the styling just applies to it too
-
-well lets just go further
-if you have already searched up information why make another api
-just store that information in local storage
-"id/movie : sourceOne,sourceTwo" etc....
-then when you click on it just get the information and display
-
-the above might not be possible unless you select something
-
-should I add another tab of SEARCHED information that way I store it so as to 
-not waste api calls
-
-OR just be lazy and make another api and reuse code
-
-*/
