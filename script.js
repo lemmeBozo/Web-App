@@ -9,6 +9,38 @@ const API_KEY = "TSYG1xjK9P1Pzej0W7UhbtV9qbvtaC7d693lME1Y";
 const form = document.getElementById("search-form");
 let clearButton = document.querySelector(".clear");
 
+function displaySources(sources, entry) {  
+    console.log(sources);
+    if (Object.keys(sources).length > 0) {
+        const sourcesDiv = document.createElement("div");
+        sourcesDiv.classList.add("sources-container");
+        sources.forEach((source) => {
+            let span = document.createElement("span");
+            span.innerText = source.name;
+            sourcesDiv.appendChild(span);
+        });
+        entry.appendChild(sourcesDiv);
+    } else {alert("No valid sources found!!!");}
+}
+
+function addListListeners() {
+    const container = document.querySelector(".entertainment-information");
+    container.addEventListener("click", async (e) => {
+        const entry = e.target.closest(".entry-container");
+        console.log(entry.dataset.label);
+        if (entry) {
+            const title_id = e.target.dataset.label;
+            const detailsURL = `https://api.watchmode.com/v1/title/${title_id}/details/?apiKey=${API_KEY}&append_to_response=sources`;
+            try {    
+                let data = await fetchData(detailsURL);
+                const validSources = data.sources.filter( source => source.region == "US");
+                displaySources(validSources, entry);
+            } catch (error) {console.error(error);}            
+        }
+    });
+}
+
+
 function addSearchesEventListener() {
     const container = document.querySelector(".search-information");
     container.addEventListener("click", async (e) => {
@@ -23,7 +55,7 @@ function addSearchesEventListener() {
                 } else {
                     alert("No movies found under that name");
                 }
-                //addListListeners();    IMPLEMENT THIS AGAIN
+                addListListeners();
             } catch(error) {console.log(error);}
         }
     });
@@ -92,6 +124,7 @@ async function fetchData(url) {
         return data; // Returns the data
     } catch (error) { // if error is thrown, handles it
         console.error("Error occurred: ", error);
+        return {}; // Return default empty object
     }
 }
 
@@ -118,10 +151,10 @@ form.addEventListener("submit", async (event) => {
         let info = parseJson(await fetchData(searchURL));
         if (!Object.keys(info).length == 0) {
             listMovies(info);
+            addListListeners();            
         } else {
             alert("No movies found under that name");
         }
-        //addListListeners();    IMPLEMENT THIS AGAIN
     } catch(error) {
         console.error("Error fetching data: ", error);
     }

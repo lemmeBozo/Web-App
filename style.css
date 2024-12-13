@@ -109,6 +109,37 @@ input[type="search"]::-webkit-search-cancel-button {
     background-color: #383838; 
     transform: translateY(-2px); /* slightly lifts up upon hover */
   }
+
+
+  .sources-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow spans to wrap to the next line */
+    gap: 10px; /* Space between spans */
+    padding: 15px; /* Padding inside the container */
+    background-color: #f5f5f5; /* Light gray background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #ddd; /* Light border for definition */
+    max-width: 600px; /* Optional: Limit the width */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .sources-container span {
+    background-color: #007BFF; /* Primary blue color */
+    color: white; /* Text color */
+    font-size: 14px; /* Font size */
+    font-weight: 500; /* Slightly bold */
+    padding: 8px 12px; /* Padding inside each span */
+    border-radius: 20px; /* Pill-shaped style */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for spans */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+  }
+  
+  .sources-container span:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
   
 
 /* PC Styles */
